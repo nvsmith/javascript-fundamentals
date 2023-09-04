@@ -9,7 +9,7 @@ var yourName = "Nate";
 
 if (time > 6 && time < 12) {
     greeting = "Good morning";
-} else if (time < 18) {
+} else if (time < 16) {
     greeting = "Good afternoon";
 } else if (time < 20) {
     greeting = "Good evening";
