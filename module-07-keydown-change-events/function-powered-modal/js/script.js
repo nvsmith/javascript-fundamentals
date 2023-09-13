@@ -11,17 +11,19 @@ button.addEventListener("click", function () {
 });
 
 modalX.addEventListener("click", function () {
-  modal.classList.remove("show-modal");
-  button.innerText = "Who's got this?";
+  closeModal();
 });
 
 document.addEventListener("keydown", function (e) {
   // console.log(e.key);
   if (e.key === "Escape") {
-    // console.log(e.key);
     if (modal.classList.contains("show-modal")) {
-      modal.classList.remove("show-modal");
-      button.innerText = "Who's got this?";
+      closeModal();
     }
   }
 })
+
+var closeModal = function () {
+  modal.classList.remove("show-modal");
+  button.innerText = "Who's got this?";
+}
