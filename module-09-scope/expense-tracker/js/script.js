@@ -1,5 +1,7 @@
 // Step 6 of 6
 // Practice Exercises: Scope
+
+// Exercise 1
 // Math.min, Math.max, spread operator, createElement, 
 // const, classList, innerHTML, append, template literals.
 
