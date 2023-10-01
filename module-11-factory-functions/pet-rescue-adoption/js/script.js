@@ -1,3 +1,13 @@
+// Step 4 of 6
+// Factory Function Pattern for Pets
+
+// Write code to help Sharon’s Pet Rescue get some animals adopted! 
+// Start by creating a factory function that takes
+// name, species, and tiredness as parameters.
+
+
+
+
 const statusButton = document.querySelector("button");
 const pets = document.querySelector(".all-pets");
 
