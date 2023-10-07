@@ -5,35 +5,41 @@
 // fetch(), async/await syntax, .json(), function expression,
 // innerHTML, for…of loop, createElement(), append()
 
+// Exercise #2
+// async functions, fetch, template literals, change event
+
 // ----- Random User Generator API -----
 
-const randomFolks = document.querySelector(".random-peeps");
+const randomFolks = document.querySelector(".random-peeps"); // cards container
+const selectUserNumber = document.querySelector("#users"); // drop-down list
 
-// Begin communication between program & API
-const getData = async function () {
-  //   Get data from 5 random users
-  const usersRequest = await fetch("https://randomuser.me/api?results=5");
+// Begin communication between program & API.
+const getData = async function (numUsers) {
+  //   Get data from a selected number of random users.
+  const usersRequest = await fetch(
+    `https://randomuser.me/api?results=${numUsers}`
+  );
   const data = await usersRequest.json();
-  //   console.log(`data:`, data);
   const userResults = data.results; // array of objects
-  //   console.log(`userResults:`, userResults);
   displayUsers(userResults);
 };
 
+// getData(1); optional: pass a default number of user cards to load.
 getData();
 
 // Display users with their name, country, and avatar
 const displayUsers = function (userResults) {
-  //   Clear the randomFolks element
+  // Clear the cards container element.
   randomFolks.innerHTML = "";
 
-  // Loop thru each user and parse the relevant data
+  // Loop thru each user.
   for (let user of userResults) {
+    // Parse the desired data
     const country = user.location.country;
     const name = user.name.first;
     const imageUrl = user.picture.medium;
 
-    // Populate each user to the webpage as a new div
+    // Append each user's data to the webpage as a new card div.
     const userDiv = document.createElement("div");
     userDiv.innerHTML = `
         <h3>${name}</h3>
@@ -43,3 +49,9 @@ const displayUsers = function (userResults) {
     randomFolks.append(userDiv);
   }
 };
+
+// Select number of users to fetch/display.
+selectUserNumber.addEventListener("change", function (e) {
+  const numUsers = e.target.value;
+  getData(numUsers);
+});
