@@ -1,5 +1,5 @@
-// Step 2 of 6
-// Select Elements & Add Placeholders
+// Step 2 of 6 - Select Elements & Add Placeholders
+// Step 3 of 6 - Accept & Validate Player Guesses
 
 // The unordered list where guessed letters will appear.
 const guessedLetters = document.querySelector(".guessed-letters");
@@ -38,8 +38,28 @@ placeholder(word);
 guessLetterButton.addEventListener("click", function (e) {
     // Prevent form submission and reloading the page.
     e.preventDefault();
+    // Clear the message element.
+    message.innerText = "";
+    // Grab the input's value.
     const guess = letterInput.value;
-    console.log(guess);
+    // Make sure the guess is valid.
+    const goodGuess = validateInput(guess);
+    console.log(goodGuess);
     // Clear the input after  guessing.
     letter.value = "";
 });
+
+const validateInput = function (input) {
+    const acceptedLetter = /[a-zA-Z]/;
+
+    // Allow only a single letter as input.
+    if (input.length === 0) {
+        message.innerText = `No blank guesses!`;
+    } else if (input.length > 1) {
+        message.innerText = `Please guess a single letter.`;
+    } else if (!input.match(acceptedLetter)) {
+        message.innerText = `Only single letters are allowed. No special characters or numbers.`;
+    } else {
+        return input;
+    }
+};
