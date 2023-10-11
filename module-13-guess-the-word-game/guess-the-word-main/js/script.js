@@ -2,7 +2,7 @@
 // Step 3 of 6 - Accept & Validate Player Guesses
 
 // The unordered list where guessed letters will appear.
-const guessedLetters = document.querySelector(".guessed-letters");
+const guessedLettersElement = document.querySelector(".guessed-letters");
 // The "Guess!" button.
 const guessLetterButton = document.querySelector(".guess");
 // The text input where the player will guess a letter.
@@ -21,6 +21,9 @@ const playAgainButton = document.querySelector(".play-again");
 // Start word for testing.
 const word = "magnolia";
 
+// Array to track guesses.
+const guessedLetters = [];
+
 // Display placeholder symbols for the word's letters
 const placeholder = function (word) {
     // Create an empty array to hold the placeholder symobls
@@ -29,7 +32,7 @@ const placeholder = function (word) {
     for (const letter of word) {
         placeholderLetters.push("●");
     }
-    // Add the array to the document.
+    // Add the array to the document minus any separators.
     wordInProgress.innerText = placeholderLetters.join("");
 };
 
@@ -44,9 +47,13 @@ guessLetterButton.addEventListener("click", function (e) {
     const guess = letterInput.value;
     // Make sure the guess is valid.
     const goodGuess = validateInput(guess);
-    console.log(goodGuess);
+
+    if (goodGuess) {
+        makeGuess(guess);
+    }
+
     // Clear the input after  guessing.
-    letter.value = "";
+    letterInput.value = "";
 });
 
 const validateInput = function (input) {
@@ -61,5 +68,16 @@ const validateInput = function (input) {
         message.innerText = `Only single letters are allowed. No special characters or numbers.`;
     } else {
         return input;
+    }
+};
+
+const makeGuess = function (guess) {
+    guess = guess.toUpperCase();
+
+    if (guessedLetters.includes(guess)) {
+        message.innerText = `You've already guessed ${guess.toUpperCase()}. Try something new!`;
+    } else {
+        guessedLetters.push(guess);
+        console.log(guessedLetters);
     }
 };
