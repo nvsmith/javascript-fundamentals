@@ -82,6 +82,7 @@ const makeGuess = function (guess) {
         guessedLetters.push(guess);
         console.log(guessedLetters);
         showGuessedLetters();
+        updateWordInProgress(guessedLetters);
     }
 };
 
@@ -99,3 +100,27 @@ const showGuessedLetters = function () {
 };
 
 // Update the Word in Progress
+const updateWordInProgress = function (guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    // Array for revealed characters after guess input.
+    const revealWord = [];
+
+    // Check if any guessed letter is in the word array.
+    for (const letter of wordArray) {
+        if (guessedLetters.includes(letter)) {
+            revealWord.push(letter);
+        } else {
+            revealWord.push("●");
+        }
+    }
+
+    // Update the display with the revealed characters.
+    wordInProgress.innerText = revealWord.join("");
+};
+
+// Check if player has guessed the word
+const checkWin = function () {
+    if (condition) {
+    }
+};
