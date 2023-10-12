@@ -1,5 +1,6 @@
 // Step 2 of 6 - Select Elements & Add Placeholders
 // Step 3 of 6 - Accept & Validate Player Guesses
+// Step 4 of 6 - Display Word & Guessed Letters
 
 // The unordered list where guessed letters will appear.
 const guessedLettersElement = document.querySelector(".guessed-letters");
@@ -71,6 +72,7 @@ const validateInput = function (input) {
     }
 };
 
+// Process and track user's guess.
 const makeGuess = function (guess) {
     guess = guess.toUpperCase();
 
@@ -79,5 +81,21 @@ const makeGuess = function (guess) {
     } else {
         guessedLetters.push(guess);
         console.log(guessedLetters);
+        showGuessedLetters();
     }
 };
+
+// Display guesses on the page.
+const showGuessedLetters = function () {
+    // Empty out the list where guessed letters will display.
+    guessedLettersElement.innerHTML = "";
+
+    // Populate the list with each valid guess.
+    for (const letter of guessedLetters) {
+        const li = document.createElement("li");
+        li.innerText = letter;
+        guessedLettersElement.append(li);
+    }
+};
+
+// Update the Word in Progress
