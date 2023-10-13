@@ -117,10 +117,15 @@ const updateWordInProgress = function (guessedLetters) {
 
     // Update the display with the revealed characters.
     wordInProgress.innerText = revealWord.join("");
+
+    checkIfWin();
 };
 
 // Check if player has guessed the word
-const checkWin = function () {
-    if (condition) {
+const checkIfWin = function () {
+    if (word.toUpperCase() === wordInProgress.innerText) {
+        message.classList.add("win");
+        message.innerHTML = `<p class="highlight">
+        You guessed correct the word! Congrats!</p>`;
     }
 };
