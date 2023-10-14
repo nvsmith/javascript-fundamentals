@@ -1,6 +1,7 @@
-// Step 2 of 6 - Select Elements & Add Placeholders
-// Step 3 of 6 - Accept & Validate Player Guesses
-// Step 4 of 6 - Display Word & Guessed Letters
+// Step 2 - Select Elements & Add Placeholders
+// Step 3 - Accept & Validate Player Guesses
+// Step 4 - Display Word & Guessed Letters
+// Step 5 - Fetch Words & Remaining Guesses
 
 // The unordered list where guessed letters will appear.
 const guessedLettersElement = document.querySelector(".guessed-letters");
@@ -20,10 +21,12 @@ const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
 // Start word for testing.
-const word = "magnolia";
+let word = "magnolia";
 
 // Array to track guesses.
 const guessedLetters = [];
+
+let remainingGuesses = 8;
 
 // Display placeholder symbols for the word's letters
 const placeholder = function (word) {
@@ -82,6 +85,7 @@ const makeGuess = function (guess) {
         guessedLetters.push(guess);
         console.log(guessedLetters);
         showGuessedLetters();
+        updateGuessesRemaining(guess);
         updateWordInProgress(guessedLetters);
     }
 };
@@ -119,6 +123,28 @@ const updateWordInProgress = function (guessedLetters) {
     wordInProgress.innerText = revealWord.join("");
 
     checkIfWin();
+};
+
+// Update the number of guesses remaining
+const updateGuessesRemaining = function (guess) {
+    const wordUpper = word.toUpperCase();
+
+    if (!wordUpper.includes(guess)) {
+        message.innerText = `You have chosen...poorly. "${guess.toUpperCase()}" cost you 1 guess.`;
+        remainingGuesses -= 1;
+    } else {
+        message.innerText = `You have chosen...wisely. "${guess.toUpperCase()}" is acceptable.`;
+    }
+
+    // Update the remaining guesses message
+    if (remainingGuesses === 0) {
+        message.innerHTML = `GAME OVER`;
+        remainingGuessesElement.innerHTML = `The word was <span class="highlight">${wordUpper}</span>`;
+    } else if (remainingGuesses === 1) {
+        remainingGuessesSpan.innerText = `${remainingGuesses} guess`;
+    } else {
+        remainingGuessesSpan.innerText = `${remainingGuesses} guesses`;
+    }
 };
 
 // Check if player has guessed the word
