@@ -20,13 +20,31 @@ const message = document.querySelector(".message");
 // The hidden "Play Again!" button.
 const playAgainButton = document.querySelector(".play-again");
 
-// Start word for testing.
-let word = "magnolia";
+// Word to guess (place a word for testing).
+let word = "";
 
 // Array to track guesses.
 const guessedLetters = [];
 
 let remainingGuesses = 8;
+
+// Begin communication with the API or hosted file.
+const getWord = async function () {
+    const response = await fetch(
+        "https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt"
+    );
+    // Parse response as JSON or text.
+    const words = await response.text();
+    // console.log(words); // Verify data retrieval.
+    const wordArray = words.split("\n");
+    const randomIndex = Math.floor(Math.random() * wordArray.length);
+    word = wordArray[randomIndex].trim();
+    console.log(word);
+
+    // Call functions dependent on fetched data below this line.
+    placeholder(word);
+};
+getWord();
 
 // Display placeholder symbols for the word's letters
 const placeholder = function (word) {
@@ -39,8 +57,6 @@ const placeholder = function (word) {
     // Add the array to the document minus any separators.
     wordInProgress.innerText = placeholderLetters.join("");
 };
-
-placeholder(word);
 
 guessLetterButton.addEventListener("click", function (e) {
     // Prevent form submission and reloading the page.
